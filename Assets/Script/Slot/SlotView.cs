@@ -55,5 +55,7 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void DestroyChest()
     {
         Destroy(slotController.GetSlotModel().chestController.GetChestView().gameObject,2);
+        int slotIndex = GameService.Instance.SlotService.GetSlotIndex(slotController);
+        GameService.Instance.ChestService.DeleteChestSavedData(slotIndex);
     }
 }

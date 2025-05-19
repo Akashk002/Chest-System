@@ -13,6 +13,7 @@ public class GameService : GenericMonoSingleton<GameService>
     [SerializeField] private SlotView slotPrefab;
     [SerializeField] private List<ChestPrefabData> ChestPrefabDataList;
     [SerializeField] private UnlockedChest unlockedChest;
+    [SerializeField] private DisplayOverlayTextHandler displayOverlayTextHandler;
 
     private SlotService slotService;
     private ChestService chestService;
@@ -30,6 +31,7 @@ public class GameService : GenericMonoSingleton<GameService>
         chestService = new ChestService();
         currencyHandler = new CurrencyHandler(coinText,gemText);
         eventService = new EventService();
+        displayOverlayTextHandler.SubscribeEvent();
     }
 
     public int GetSlotCount()

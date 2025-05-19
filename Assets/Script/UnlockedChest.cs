@@ -30,6 +30,8 @@ public class UnlockedChest : MonoBehaviour
         if (slotController != null)
         {
             slotController.StartTimerForUnlockChest();
+            int slotIndex = GameService.Instance.SlotService.GetSlotIndex(slotController);
+            GameService.Instance.ChestService.SetChestSavedData(slotIndex, ChestState.Unlocking);
         }
     }
 

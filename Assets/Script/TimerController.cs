@@ -9,9 +9,9 @@ public class TimerController : MonoBehaviour
     private float remainingTimeInSeconds; // Time remaining in the countdown in seconds
     private SlotController slotController; // Time remaining in the countdown in seconds
 
-    public void SetTime(float min)
+    public void SetTime(float seconds)
     {
-        remainingTimeInSeconds = min * 60; // Convert minutes to seconds
+        remainingTimeInSeconds = seconds; // Convert minutes to seconds
     }  
     
     public void SetSlotController(SlotController slotController)

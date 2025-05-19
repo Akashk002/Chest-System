@@ -13,12 +13,9 @@ public class ChestService
         if (PlayerPrefs.HasKey("ChestSavedData"))
         {
             string dataString = PlayerPrefs.GetString("ChestSavedData");
-
-            Debug.Log("dataString - " + dataString);
             Wrapper wrapper = JsonUtility.FromJson<Wrapper>(dataString);
             chestSavedDataList = wrapper.chestSavedDataList;
-
-            if(chestSavedDataList.Count > 0)
+            if (chestSavedDataList.Count > 0)
             {
                 CreateExistingChest();
             }
@@ -26,7 +23,6 @@ public class ChestService
         else
         {
             chestSavedDataList = new List<ChestSavedData>();
-            Debug.Log("chestSavedDataList - " + chestSavedDataList);
         }
     }
 
@@ -39,11 +35,11 @@ public class ChestService
             if (chestSavedData != null)
             {
                 ChestPrefabData chestPrefabData = GameService.Instance.GetChestPrefabDataList()[i];
-                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, slotController);
+                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, slotController , chestSavedData.chestState);
                 ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController.GetSlotView().transform);
                 chestControllersList.Add(chestControllers);
                 slotController.GetSlotModel().SetChestInfo(chestControllers);
-                chestModel.SetChestState(chestSavedData.chestState);
+                chestControllers.CheckChestStateAndUpdateSlot(chestSavedData);
             }
         }
     }
@@ -51,15 +47,17 @@ public class ChestService
 
     public void CreateNewChest()
     {
+        bool isChestCreated = false;
+
         for (int i = 0; i < GameService.Instance.GetSlotCount(); i++)
         {
             SlotController slotController = GameService.Instance.SlotService.GetSlotController(i);
 
-            if(slotController.GetSlotModel().IsSlotEmpty())
+            if (slotController.GetSlotModel().IsSlotEmpty())
             {
                 ChestPrefabData chestPrefabData = GameService.Instance.GetChestPrefabDataList()[i];
 
-                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable,slotController);
+                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, slotController);
                 ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController.GetSlotView().transform);
                 chestControllersList.Add(chestControllers);
                 slotController.GetSlotModel().SetChestInfo(chestControllers);
@@ -68,11 +66,21 @@ public class ChestService
                 {
                     slotIndex = i,
                     chestState = ChestState.Locked,
-                    chestType = chestPrefabData.chestType, 
+                    chestType = chestPrefabData.chestType,
+
+                    startTime = DateTime.Now.ToString(),
                 });
+
+                isChestCreated = true;
                 break;
-            }            
+            }
         }
+
+        if(!isChestCreated)            
+        {
+            GameService.Instance.EventService.OnFailedString.InvokeEvent(FailedStringType.GenerateChestFailed);
+        }
+
         string dataString = JsonUtility.ToJson(new Wrapper(chestSavedDataList));
         PlayerPrefs.SetString("ChestSavedData", dataString);
     }
@@ -87,7 +95,7 @@ public class ChestService
 
             if (chestState == ChestState.Unlocking)
             {
-                chestSavedData.startTime = DateTime.Now;
+               chestSavedData.startTime = DateTime.Now.ToString();
             }
 
             string dataString = JsonUtility.ToJson(new Wrapper(chestSavedDataList));
@@ -129,7 +137,7 @@ public class ChestSavedData
     public int slotIndex;
     public ChestState chestState;
     public ChestType chestType;
-    public DateTime startTime;
+    public string startTime;
 }
 
 [System.Serializable]

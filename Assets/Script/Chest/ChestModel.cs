@@ -7,14 +7,15 @@ using Random = UnityEngine.Random;
 public class ChestModel
 {
     private ChestController chestController;
-    private SlotController slotController;
+    public SlotController slotController;
     public ChestScriptable chestScriptable;
     public ChestState chestState = ChestState.Locked;
 
-    public ChestModel(ChestScriptable chestScriptable, SlotController slotController)
+    public ChestModel(ChestScriptable chestScriptable, SlotController slotController , ChestState chestState = ChestState.Locked)
     {
         this.chestScriptable = chestScriptable;
         this.slotController = slotController;
+        this.chestState = chestState;
     }
 
     public void SetChestController(ChestController chestController)
@@ -31,9 +32,9 @@ public class ChestModel
         return slotController;
     }
 
-    public float GetUnlockingTimeInMin()
+    public float GetUnlockingTimeInSec()
     {
-        return chestScriptable.timeInMin;
+        return chestScriptable.timeInMin * 60;
     } 
     
     public ChestScriptable GetChestInfo()

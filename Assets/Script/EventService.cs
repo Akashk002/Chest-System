@@ -2,10 +2,12 @@ using System;
 public class EventService
 {
     public EventController<SlotController> OnSlotSelect { get; private set; }
+    public EventController<FailedStringType> OnFailedString { get; private set; }
 
     public EventService()
     {
         OnSlotSelect = new EventController<SlotController>();
+        OnFailedString = new EventController<FailedStringType>();
     }
 }
 public class EventController<T, K>

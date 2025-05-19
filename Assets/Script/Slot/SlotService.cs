@@ -8,10 +8,10 @@ public class SlotService
     private SlotController unlockingSlot;
     public SlotService(SlotView slotPrefab, int noOfSlots, Transform slotTransform)
     {
-        CreateSlot(slotPrefab,noOfSlots,slotTransform);
+        CreateSlot(slotPrefab, noOfSlots, slotTransform);
     }
 
-    private void CreateSlot(SlotView slotPrefab , int noOfSlots , Transform slotTransform)
+    private void CreateSlot(SlotView slotPrefab, int noOfSlots, Transform slotTransform)
     {
         for (int i = 0; i < noOfSlots; i++)
         {
@@ -24,11 +24,11 @@ public class SlotService
     public SlotController GetSlotController(int slotIndex)
     {
         return slotControllersList[slotIndex];
-    }  
-    
+    }
+
     public int GetSlotIndex(SlotController SlotController)
     {
-        return slotControllersList.IndexOf(SlotController); 
+        return slotControllersList.IndexOf(SlotController);
     }
 
     public void SetUnlockingSlot(SlotController slotController)

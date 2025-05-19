@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 
 public class UnlockedChest : MonoBehaviour
 {
@@ -11,7 +8,7 @@ public class UnlockedChest : MonoBehaviour
 
     private void OnEnable()
     {
-       GameService.Instance.EventService.OnSlotSelect.AddListener(SetGetCount);
+        GameService.Instance.EventService.OnSlotSelect.AddListener(SetGetCount);
     }
 
     private void OnDisable()
@@ -26,7 +23,7 @@ public class UnlockedChest : MonoBehaviour
     }
 
     public void StartTimer()
-    { 
+    {
         if (slotController != null)
         {
             slotController.StartTimerForUnlockChest();

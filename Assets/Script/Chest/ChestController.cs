@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestController 
+public class ChestController
 {
     private ChestView chestView;
     private ChestModel chestModel;
 
-    public ChestController(ChestView chestPrefab , ChestModel chestModel, Transform transform)
+    public ChestController(ChestView chestPrefab, ChestModel chestModel, Transform transform)
     {
         chestView = GameObject.Instantiate(chestPrefab, transform);
         chestView.transform.SetAsFirstSibling();
@@ -21,21 +19,22 @@ public class ChestController
     {
         if (chestModel.chestState == ChestState.Unlocking)
         {
-            TimeSpan timeDifference = DateTime.Now - DateTime.Parse(chestSavedData.startTime);
-            int totalTimeInSeconds = chestModel.chestScriptable.timeInMin * 60;
-            var remainingTimeInSeconds = (totalTimeInSeconds) - (float)timeDifference.TotalSeconds;
-            chestModel.slotController.GetSlotModel().SetRemainingTime(remainingTimeInSeconds);
-            chestModel.slotController.StartTimerForUnlockChest();
+            ResumeChestTimer(chestSavedData);
         }
         else
         if (chestModel.chestState == ChestState.Opened)
         {
             chestModel.slotController.UnlockChest();
         }
-        else
-        {
+    }
 
-        }
+    private void ResumeChestTimer(ChestSavedData chestSavedData)
+    {
+        TimeSpan timeDifference = DateTime.Now - DateTime.Parse(chestSavedData.startTime);
+        int totalTimeInSeconds = chestModel.chestScriptable.timeInMin * 60;
+        var remainingTimeInSeconds = (totalTimeInSeconds) - (float)timeDifference.TotalSeconds;
+        chestModel.slotController.GetSlotModel().SetRemainingTime(remainingTimeInSeconds);
+        chestModel.slotController.StartTimerForUnlockChest();
     }
 
     public ChestView GetChestView()

@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SlotModel 
+public class SlotModel
 {
     private SlotController slotController;
     public ChestController chestController;
@@ -30,7 +27,7 @@ public class SlotModel
     public void UpdateSlotTimeText()
     {
         slotController.GetSlotView().timeText.enabled = true;
-        float timeInHours = (timeNeededToUnlock/60) / 60f;
+        float timeInHours = (timeNeededToUnlock / 60) / 60f;
         slotController.GetSlotView().timeText.SetText(timeInHours + "H");
     }
 
@@ -42,7 +39,7 @@ public class SlotModel
             return Mathf.CeilToInt(time / 10);
         }
 
-        return Mathf.CeilToInt((timeNeededToUnlock/60) / 10); ;
+        return Mathf.CeilToInt((timeNeededToUnlock / 60) / 10); ;
     }
 
     public ChestState GetChestState()

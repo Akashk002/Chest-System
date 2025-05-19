@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -40,8 +38,8 @@ public class CurrencyHandler
     {
         gem += value;
         SetGems();
-    } 
-    
+    }
+
     public void SpendGems(int value)
     {
         gem -= value;
@@ -50,8 +48,8 @@ public class CurrencyHandler
             gem = 0;
         }
         SetGems();
-    } 
-    
+    }
+
     public void SetGems()
     {
         PlayerPrefs.SetInt("Gem", gem);

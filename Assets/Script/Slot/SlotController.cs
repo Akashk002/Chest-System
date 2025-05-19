@@ -13,16 +13,6 @@ public class SlotController
         slotModel.SetSlotCountroller(this);
     }
 
-    public void OnEnable()
-    {
-
-    }
-
-    public void OnDisable()
-    {
-
-    }
-
     public SlotView GetSlotView()
     {
         return slotView;
@@ -39,7 +29,7 @@ public class SlotController
 
         if (GetChestState() == ChestState.Unlocking)
         {
-           GetSlotView().UnlockChestByGem.UpdateGemCount(slotModel.GetGemCountByTime());
+            GetSlotView().UnlockChestByGem.UpdateGemCount(slotModel.GetGemCountByTime());
             slotView.UnlockChestByGem.gameObject.SetActive(true);
             slotView.displayChestData.gameObject.SetActive(true);
         }
@@ -159,8 +149,8 @@ public class SlotController
         {
             GameService.Instance.EventService.OnFailedString.InvokeEvent(FailedStringType.UnlockedChestByGemFailed);
         }
-    }  
-    
+    }
+
     public void UnlockChest()
     {
         SetChestState(ChestState.Opened);
@@ -171,8 +161,6 @@ public class SlotController
         slotView.OpenChestText.enabled = true;
         GameService.Instance.SlotService.SetUnlockingSlot(null);
     }
-
-
 
     public void UndoUnlockingChest()
     {

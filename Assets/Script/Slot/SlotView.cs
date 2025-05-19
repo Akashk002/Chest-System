@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler ,IPointerClickHandler
+public class SlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public TMP_Text emptyText;
     public TMP_Text lockedChestText;
@@ -16,16 +14,6 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public UnlockChestByGem UnlockChestByGem;
     public Button undoButton;
     private SlotController slotController;
-
-
-    private void OnEnable()
-    {
-       // slotController.OnEnable();
-    }
-    private void OnDisable()
-    {
-        //slotController.OnDisable();
-    }
 
     public void SetSlotCountroller(SlotController slotController)
     {
@@ -54,7 +42,7 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void DestroyChest()
     {
-        Destroy(slotController.GetSlotModel().chestController.GetChestView().gameObject,2);
+        Destroy(slotController.GetSlotModel().chestController.GetChestView().gameObject, 2);
         int slotIndex = GameService.Instance.SlotService.GetSlotIndex(slotController);
         GameService.Instance.ChestService.DeleteChestSavedData(slotIndex);
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -12,13 +10,13 @@ public class TimerController : MonoBehaviour
     public void SetTime(float seconds)
     {
         remainingTimeInSeconds = seconds; // Convert minutes to seconds
-    }  
-    
+    }
+
     public void SetSlotController(SlotController slotController)
     {
         this.slotController = slotController;
-    } 
-    
+    }
+
     public float GetTime()
     {
         return remainingTimeInSeconds / 60; // Convert seconds to minutes
@@ -32,7 +30,7 @@ public class TimerController : MonoBehaviour
 
     public void UpdateTimer(float timeInSeconds)
     {
-        if(timeInSeconds <= 0)
+        if (timeInSeconds <= 0)
         {
             slotController.UnlockChest();
         }

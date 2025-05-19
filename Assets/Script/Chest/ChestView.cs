@@ -18,7 +18,7 @@ public class ChestView : MonoBehaviour
     }
 
     public Animator GetChestAnimator()
-    { 
+    {
         return chestOpenAnim;
     }
 

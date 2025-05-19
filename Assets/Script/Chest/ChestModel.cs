@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ChestModel
@@ -11,7 +7,7 @@ public class ChestModel
     public ChestScriptable chestScriptable;
     public ChestState chestState = ChestState.Locked;
 
-    public ChestModel(ChestScriptable chestScriptable, SlotController slotController , ChestState chestState = ChestState.Locked)
+    public ChestModel(ChestScriptable chestScriptable, SlotController slotController, ChestState chestState = ChestState.Locked)
     {
         this.chestScriptable = chestScriptable;
         this.slotController = slotController;
@@ -21,12 +17,12 @@ public class ChestModel
     public void SetChestController(ChestController chestController)
     {
         this.chestController = chestController;
-    }  
-    
+    }
+
     public ChestController GetChestController()
     {
         return chestController;
-    } 
+    }
     public SlotController GetSlotController()
     {
         return slotController;
@@ -35,8 +31,8 @@ public class ChestModel
     public float GetUnlockingTimeInSec()
     {
         return chestScriptable.timeInMin * 60;
-    } 
-    
+    }
+
     public ChestScriptable GetChestInfo()
     {
         return chestScriptable;
@@ -49,13 +45,13 @@ public class ChestModel
 
     public void SetChestState(ChestState chestState)
     {
-         this.chestState = chestState;
+        this.chestState = chestState;
     }
 
     public void GetChestReward()
     {
-        int coins = Random.Range(chestScriptable.minimumCoin,chestScriptable.maximumCoin + 1);
-        int gems = Random.Range(chestScriptable.minimumGem,chestScriptable.maximumgem + 1);
+        int coins = Random.Range(chestScriptable.minimumCoin, chestScriptable.maximumCoin + 1);
+        int gems = Random.Range(chestScriptable.minimumGem, chestScriptable.maximumgem + 1);
 
         GameService.Instance.CurrencyHandler.AddCoin(coins);
         GameService.Instance.CurrencyHandler.AddGems(gems);

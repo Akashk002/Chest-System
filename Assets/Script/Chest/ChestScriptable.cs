@@ -13,12 +13,6 @@ public class ChestScriptable : ScriptableObject
     public int timeInMin;
 }
 
-[CreateAssetMenu(fileName = "ChestScriptableObject", menuName = "ScriptableObjects/ChestScriptableList")]
-public class ChestScriptableList : ScriptableObject
-{
-    public List<ChestScriptable> chestDataList;
-}
-
 public enum ChestType
 {
     Common,

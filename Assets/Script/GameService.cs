@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -29,7 +27,7 @@ public class GameService : GenericMonoSingleton<GameService>
     {
         slotService = new SlotService(slotPrefab, noOfSlots, slotTransform);
         chestService = new ChestService();
-        currencyHandler = new CurrencyHandler(coinText,gemText);
+        currencyHandler = new CurrencyHandler(coinText, gemText);
         eventService = new EventService();
         displayOverlayTextHandler.SubscribeEvent();
     }
@@ -37,8 +35,8 @@ public class GameService : GenericMonoSingleton<GameService>
     public int GetSlotCount()
     {
         return noOfSlots;
-    }  
-    
+    }
+
     public List<ChestPrefabData> GetChestPrefabDataList()
     {
         return ChestPrefabDataList;

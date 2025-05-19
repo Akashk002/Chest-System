@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +34,7 @@ public class ChestService
             if (chestSavedData != null)
             {
                 ChestPrefabData chestPrefabData = GameService.Instance.GetChestPrefabDataList()[i];
-                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, slotController , chestSavedData.chestState);
+                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, slotController, chestSavedData.chestState);
                 ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController.GetSlotView().transform);
                 chestControllersList.Add(chestControllers);
                 slotController.GetSlotModel().SetChestInfo(chestControllers);
@@ -43,7 +42,7 @@ public class ChestService
             }
         }
     }
-    
+
 
     public void CreateNewChest()
     {
@@ -76,7 +75,7 @@ public class ChestService
             }
         }
 
-        if(!isChestCreated)            
+        if (!isChestCreated)
         {
             GameService.Instance.EventService.OnFailedString.InvokeEvent(FailedStringType.GenerateChestFailed);
         }
@@ -95,7 +94,7 @@ public class ChestService
 
             if (chestState == ChestState.Unlocking)
             {
-               chestSavedData.startTime = DateTime.Now.ToString();
+                chestSavedData.startTime = DateTime.Now.ToString();
             }
 
             string dataString = JsonUtility.ToJson(new Wrapper(chestSavedDataList));

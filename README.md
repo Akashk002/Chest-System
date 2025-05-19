@@ -29,7 +29,7 @@ Manages slot data, runtime states, and timing logic.
 
 Contains business rules for slot spins and chest generation.
 
--View (SlotView):
+- View (SlotView):
 
 Handles user interactions, pointer events (enter, exit, click), and visual feedback.
 

@@ -6,8 +6,9 @@ Game Description
 This game is a dynamic, slot-and-chest-based casual title designed to engage players with its rewarding blend of chance and strategy. Players scroll slots to trigger chest unlocks, earn in-game currency (coins and gems), and experience fluid, event-driven gameplay
 
 Chest & Slot System Architecture Overview
-Service Locator Pattern
 
+
+Service Locator Pattern :-
 The system uses a central GameService class to act as the gateway for accessing key game services. Implemented as a Singleton via GenericMonoSingleton<T>, this design ensures there is only one service locator instance throughout the game session.
 
 Key Services Registered:
@@ -20,7 +21,7 @@ Key Services Registered:
 
  - CurrencyHandler: Handles all aspects of in-game currency, ensuring accurate coin and gem updates with reliable persistence.
 
-MVC (Model-View-Controller) Pattern
+MVC (Model-View-Controller) Pattern :-
 Slot System:
 
 - Model (SlotModel):
@@ -62,8 +63,7 @@ Coordinates chest state transitions and triggers animations.
 
 Distributes rewards and manages interactions with the slot system.
 
-Observer Pattern
-
+Observer Pattern :-
 Implemented via the EventService and a generic EventController<T>, this pattern decouples event generation from event handling. It allows various components to react to game events through C# events and delegates.
 
 Key Events:

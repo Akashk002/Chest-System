@@ -34,10 +34,10 @@ public class ChestService
             if (chestSavedData != null)
             {
                 ChestPrefabData chestPrefabData = GameService.Instance.GetChestPrefabDataList()[i];
-                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, slotController, chestSavedData.chestState);
-                ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController.GetSlotView().transform);
+                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, chestSavedData.chestState);
+                ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController);
                 chestControllersList.Add(chestControllers);
-                slotController.GetSlotModel().SetChestInfo(chestControllers);
+                slotController.GetSlotView().SetChestInfo(chestControllers);
                 chestControllers.CheckChestStateAndUpdateSlot(chestSavedData);
             }
         }
@@ -52,14 +52,14 @@ public class ChestService
         {
             SlotController slotController = GameService.Instance.SlotService.GetSlotController(i);
 
-            if (slotController.GetSlotModel().IsSlotEmpty())
+            if (slotController.IsSlotEmpty())
             {
                 ChestPrefabData chestPrefabData = GameService.Instance.GetChestPrefabDataList()[i];
 
-                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, slotController);
-                ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController.GetSlotView().transform);
+                ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable);
+                ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController);
                 chestControllersList.Add(chestControllers);
-                slotController.GetSlotModel().SetChestInfo(chestControllers);
+                slotController.GetSlotView().SetChestInfo(chestControllers);
 
                 chestSavedDataList.Add(new ChestSavedData()
                 {
@@ -144,5 +144,6 @@ public enum ChestState
 {
     Locked,
     Unlocking,
-    Opened
+    Unlocked,
+    Collected
 }

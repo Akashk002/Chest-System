@@ -5,14 +5,17 @@ public class ChestController
 {
     private ChestView chestView;
     private ChestModel chestModel;
+    private SlotController slotController;
 
-    public ChestController(ChestView chestPrefab, ChestModel chestModel, Transform transform)
+    public ChestController(ChestView chestPrefab, ChestModel chestModel, SlotController slotController)
     {
+        Transform transform = slotController.GetSlotView().transform;
+
         chestView = GameObject.Instantiate(chestPrefab, transform);
         chestView.transform.SetAsFirstSibling();
         chestView.SetChestController(this);
         this.chestModel = chestModel;
-        chestModel.SetChestController(this);
+        this.slotController = slotController;
     }
 
     public void CheckChestStateAndUpdateSlot(ChestSavedData chestSavedData)
@@ -22,9 +25,9 @@ public class ChestController
             ResumeChestTimer(chestSavedData);
         }
         else
-        if (chestModel.chestState == ChestState.Opened)
+        if (chestModel.chestState == ChestState.Unlocked)
         {
-            chestModel.slotController.UnlockChest();
+            slotController.UnlockChest();
         }
     }
 
@@ -33,8 +36,8 @@ public class ChestController
         TimeSpan timeDifference = DateTime.Now - DateTime.Parse(chestSavedData.startTime);
         int totalTimeInSeconds = chestModel.chestScriptable.timeInMin * 60;
         var remainingTimeInSeconds = (totalTimeInSeconds) - (float)timeDifference.TotalSeconds;
-        chestModel.slotController.GetSlotModel().SetRemainingTime(remainingTimeInSeconds);
-        chestModel.slotController.StartTimerForUnlockChest();
+        slotController.SetRemainingTime(remainingTimeInSeconds);
+        slotController.StartTimerForUnlockChest();
     }
 
     public ChestView GetChestView()
@@ -50,5 +53,10 @@ public class ChestController
     {
         chestView.GetChestAnimator().enabled = true;
         chestModel.GetChestReward();
+    }
+
+    internal SlotController GetSlotController()
+    {
+        return slotController;
     }
 }

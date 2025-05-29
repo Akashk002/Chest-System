@@ -19,7 +19,7 @@ public class UnlockedChest : MonoBehaviour
     private void SetGetCount(SlotController slotController)
     {
         this.slotController = slotController;
-        gemCount.text = slotController.GetSlotModel().GetGemCountByTime().ToString();
+        gemCount.text = slotController.GetGemCountByTime().ToString();
     }
 
     public void StartTimer()

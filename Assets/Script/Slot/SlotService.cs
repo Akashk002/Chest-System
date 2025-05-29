@@ -15,8 +15,7 @@ public class SlotService
     {
         for (int i = 0; i < noOfSlots; i++)
         {
-            SlotModel slotModel = new SlotModel();
-            SlotController slotController = new SlotController(slotPrefab, slotModel, slotTransform);
+            SlotController slotController = new SlotController(slotPrefab, slotTransform);
             slotControllersList.Add(slotController);
         }
     }

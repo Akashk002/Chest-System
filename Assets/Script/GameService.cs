@@ -18,7 +18,6 @@ public class GameService : GenericMonoSingleton<GameService>
     private EventService eventService;
     private CurrencyHandler currencyHandler;
 
-
     public SlotService SlotService { get { return slotService; } }
     public ChestService ChestService { get { return chestService; } }
     public CurrencyHandler CurrencyHandler { get { return currencyHandler; } }

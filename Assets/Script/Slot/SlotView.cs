@@ -22,12 +22,34 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        slotController.OnPointerEnter();
+        if (slotController.IsSlotEmpty()) return;
+        if (slotController.GetChestState() == ChestState.Collected) return;
+
+        if (slotController.GetChestState() == ChestState.Unlocking)
+        {
+            UnlockChestByGem.UpdateGemCount(slotController.GetGemCountByTime());
+            UnlockChestByGem.gameObject.SetActive(true);
+            displayChestData.gameObject.SetActive(true);
+        }
+        else
+        {
+            displayChestData.gameObject.SetActive(true);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        slotController.OnPointerExit();
+        if (slotController.IsSlotEmpty()) return;
+
+        if (slotController.GetChestState() == ChestState.Unlocking)
+        {
+            UnlockChestByGem.gameObject.SetActive(false);
+            displayChestData.gameObject.SetActive(false);
+        }
+        else
+        {
+            displayChestData.gameObject.SetActive(false);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -42,8 +64,69 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void DestroyChest()
     {
-        Destroy(slotController.GetSlotModel().chestController.GetChestView().gameObject, 2);
+        Destroy(slotController.chestController.GetChestView().gameObject, 2);
         int slotIndex = GameService.Instance.SlotService.GetSlotIndex(slotController);
         GameService.Instance.ChestService.DeleteChestSavedData(slotIndex);
+    }
+
+    public void OpenChest()
+    {
+        OpenChestText.enabled = false;
+        displayChestData.gameObject.SetActive(false);
+        undoButton.gameObject.SetActive(false);
+        OpenChestText.enabled = false;
+        DestroyChest();
+    }
+
+    public void StartTimer(float time)
+    {
+        timeText.enabled = false;
+        timerController.gameObject.SetActive(true);
+        timerController.SetTime(time);
+        timerController.SetSlotController(slotController);
+    }
+
+    public void UnlockChestByGems()
+    {
+        timerController.gameObject.SetActive(false);
+        UnlockChestByGem.gameObject.SetActive(false);
+        timeText.enabled = false;
+        lockedChestText.enabled = false;
+        OpenChestText.enabled = true;
+        undoButton.gameObject.SetActive(true);
+    }
+    public void UnlockChest()
+    {
+        timerController.gameObject.SetActive(false);
+        UnlockChestByGem.gameObject.SetActive(false);
+        timeText.enabled = false;
+        lockedChestText.enabled = false;
+        OpenChestText.enabled = true;
+    }
+
+    public void UndoUnlocking()
+    {
+        timeText.enabled = true;
+        lockedChestText.enabled = true;
+        OpenChestText.enabled = false;
+        undoButton.gameObject.SetActive(false);
+    }
+
+
+    public void UpdateSlotTimeText()
+    {
+        timeText.enabled = true;
+        float timeInHours = (slotController.timeNeededToUnlock / 60) / 60f;
+        timeText.SetText(timeInHours + "H");
+    }
+
+    public void SetChestInfo(ChestController chestController)
+    {
+        emptyText.transform.SetAsFirstSibling();
+        lockedChestText.enabled = true;
+        displayChestData.SetChestData(chestController.GetChestModel().GetChestInfo());
+        slotController.chestController = chestController;
+        slotController.timeNeededToUnlock = chestController.GetChestModel().GetUnlockingTimeInSec();
+        UpdateSlotTimeText();
     }
 }

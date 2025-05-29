@@ -24,6 +24,6 @@ public class ChestView : MonoBehaviour
 
     private void OnDestroy()
     {
-        chestController.GetChestModel().GetSlotController().ResetSlot();
+        chestController.GetSlotController().ResetSlot();
     }
 }

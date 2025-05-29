@@ -17,6 +17,13 @@ public class SlotController
         return slotView;
     }
 
+    public void SetChestInfo(ChestController chestController)
+    {
+        this.chestController = chestController;
+        timeNeededToUnlock = chestController.GetChestModel().GetUnlockingTimeInSec();
+        slotView.SetSlotInfo(chestController);
+    }
+
     public void OnPointerClick()
     {
         if (IsSlotEmpty()) return;

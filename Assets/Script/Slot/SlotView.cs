@@ -120,13 +120,11 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         timeText.SetText(timeInHours + "H");
     }
 
-    public void SetChestInfo(ChestController chestController)
+    public void SetSlotInfo(ChestController chestController)
     {
         emptyText.transform.SetAsFirstSibling();
         lockedChestText.enabled = true;
         displayChestData.SetChestData(chestController.GetChestModel().GetChestInfo());
-        slotController.chestController = chestController;
-        slotController.timeNeededToUnlock = chestController.GetChestModel().GetUnlockingTimeInSec();
         UpdateSlotTimeText();
     }
 }

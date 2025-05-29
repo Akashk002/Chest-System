@@ -37,7 +37,7 @@ public class ChestService
                 ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable, chestSavedData.chestState);
                 ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController);
                 chestControllersList.Add(chestControllers);
-                slotController.GetSlotView().SetChestInfo(chestControllers);
+                slotController.SetChestInfo(chestControllers);
                 chestControllers.CheckChestStateAndUpdateSlot(chestSavedData);
             }
         }
@@ -59,7 +59,7 @@ public class ChestService
                 ChestModel chestModel = new ChestModel(chestPrefabData.chestScriptable);
                 ChestController chestControllers = new ChestController(chestPrefabData.chestPrefab, chestModel, slotController);
                 chestControllersList.Add(chestControllers);
-                slotController.GetSlotView().SetChestInfo(chestControllers);
+                slotController.SetChestInfo(chestControllers);
 
                 chestSavedDataList.Add(new ChestSavedData()
                 {
